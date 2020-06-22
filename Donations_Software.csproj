@@ -239,6 +239,7 @@
     <Content Include="Views\PersonalInfoes\Details.cshtml" />
     <Content Include="Views\PersonalInfoes\Edit.cshtml" />
     <Content Include="Views\PersonalInfoes\Index.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
