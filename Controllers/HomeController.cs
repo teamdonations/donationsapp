@@ -1,6 +1,7 @@
 ﻿using Donations_Software.Models;
 using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -28,33 +29,40 @@ namespace Donations_Software.Controllers
 
             return View();
         }
-        
-        public ActionResult Login(User user)
+
+        public ActionResult Login ()
         {
-            //Checking the state of model passed as parameter.
-            if (ModelState.IsValid)
-            {
+            return View();
+        }
 
-                //Validating the user, whether the user is valid or not.
-                var isValidUser = IsValidUser(user);
+        private teamdonationsEntities db = new teamdonationsEntities();
 
-                //If user is valid & present in database, we are redirecting it to Welcome page.
-                if (isValidUser != null)
-                {
-                    FormsAuthentication.SetAuthCookie(user.Email, false);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    //If the username and password combination is not present in DB then error message is shown.
-                    ModelState.AddModelError("Failure", "Wrong Username and password combination !");
-                    return View();
-                }
-            }
-            else
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Include = "Email,Password")] User uSER)
+        {
+
+            if (!String.IsNullOrEmpty(uSER.Email) && !String.IsNullOrEmpty(uSER.Password)) 
             {
-                //If model state is not valid, the model with error message is returned to the View.
-                return View(user);
+                var existsUser = db.Users.Where(c => c.Email.Contains(uSER.Email) && c.Password.Contains(uSER.Password)).ToList();
+
+                if (existsUser.Count() > 0)
+                {
+                    Session["UserID"] = existsUser[0].UserID;
+                    Session["Password"] = existsUser[0].Password;
+                    Session["isAdmin"] = existsUser[0].isAdmin;
+
+                    ViewBag.isAdmin = existsUser[0].isAdmin;
+
+                    if (existsUser[0].isAdmin == true)
+                    {
+                        return RedirectToAction("Index", "DonationDetails");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "DonationDetails");
+                    }
+                }
             }
 
             return View();

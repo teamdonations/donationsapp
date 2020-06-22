@@ -6,9 +6,15 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@{  
+    if (Session["isAdmin"].ToString() == "True")
+    {
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+    }
+}
+
 <table class="table">
     <tr>
         <th>
@@ -29,29 +35,37 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DonationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isMonthly)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DonationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DonationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DonationID })
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.DonationName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        <a href="@Url.Action("Create", "PersonalInfoes", Model)">
+            <img src="@Url.Content(item.ImageURL)" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.isMonthly)
+    </td>
+    @{
+        if (Session["isAdmin"].ToString() == "True")
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.DonationID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.DonationID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DonationID })
+            </td>
+        }
+    }
+
+</tr>
 }
 
 </table>

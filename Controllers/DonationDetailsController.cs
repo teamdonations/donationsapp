@@ -17,6 +17,11 @@ namespace Donations_Software.Controllers
         // GET: DonationDetails
         public ActionResult Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             return View(db.DonationDetails.ToList());
         }
 
