@@ -17,12 +17,29 @@ namespace Donations_Software.Controllers
         // GET: Users
         public ActionResult Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View(db.Users.ToList());
         }
 
         // GET: Users/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -38,6 +55,14 @@ namespace Donations_Software.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -61,6 +86,15 @@ namespace Donations_Software.Controllers
         // GET: Users/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,6 +126,15 @@ namespace Donations_Software.Controllers
         // GET: Users/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

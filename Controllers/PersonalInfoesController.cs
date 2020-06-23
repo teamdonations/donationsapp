@@ -17,8 +17,28 @@ namespace Donations_Software.Controllers
         // GET: PersonalInfoes
         public ActionResult Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             var personalInfoes = db.PersonalInfoes.Include(p => p.User);
             return View(personalInfoes.ToList());
+        }
+        public ActionResult UserCreate(FormCollection data)
+        {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            Session["FirstName"] = data["FirstName"];
+
+            return View();
         }
 
         // GET: PersonalInfoes/Details/5
@@ -39,8 +59,16 @@ namespace Donations_Software.Controllers
         // GET: PersonalInfoes/Create
         public ActionResult Create()
         {
-            
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             ViewBag.UserID = new SelectList(db.Users, "UserID", "FirstName");
+            //ViewBag.DonationName = donation.DonationName;
+            //ViewData["DonationName"] = donation.DonationName;
+            //TempData["DonationID"] = donation.DonationID;
+
             return View();
         }
 
@@ -65,6 +93,15 @@ namespace Donations_Software.Controllers
         // GET: PersonalInfoes/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -98,6 +135,15 @@ namespace Donations_Software.Controllers
         // GET: PersonalInfoes/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -11,23 +11,11 @@ namespace Donations_Software.Controllers
 {
     public class HomeController : Controller
     {
+        private teamdonationsEntities db = new teamdonationsEntities();
+
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return RedirectToAction("Login", "Home");
         }
 
         public ActionResult Login ()
@@ -35,10 +23,8 @@ namespace Donations_Software.Controllers
             return View();
         }
 
-        private teamdonationsEntities db = new teamdonationsEntities();
-
-        [HttpPost]
         //[ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult Login([Bind(Include = "Email,Password")] User uSER)
         {
 
@@ -48,11 +34,9 @@ namespace Donations_Software.Controllers
 
                 if (existsUser.Count() > 0)
                 {
-                    Session["UserID"] = existsUser[0].UserID;
-                    Session["Password"] = existsUser[0].Password;
                     Session["isAdmin"] = existsUser[0].isAdmin;
-
-                    ViewBag.isAdmin = existsUser[0].isAdmin;
+                    Session["UserID"] = existsUser[0].UserID;
+                    Session["FullName"] = existsUser[0].FirstName + " " + existsUser[0].LastName;
 
                     if (existsUser[0].isAdmin == true)
                     {
@@ -62,6 +46,10 @@ namespace Donations_Software.Controllers
                     {
                         return RedirectToAction("Index", "DonationDetails");
                     }
+                }
+                else 
+                {
+                    ModelState.AddModelError("", "Wrong username and password");
                 }
             }
 
@@ -82,6 +70,18 @@ namespace Donations_Software.Controllers
                     return user1;
             }
         }
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
 
+        //    return View();
+        //}
+
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
+
+        //    return View();
+        //}
     }
 }

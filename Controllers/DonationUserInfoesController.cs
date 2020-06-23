@@ -17,6 +17,15 @@ namespace Donations_Software.Controllers
         // GET: DonationUserInfoes
         public ActionResult Index()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             var donationUserInfoes = db.DonationUserInfoes.Include(d => d.DonationDetail).Include(d => d.PersonalInfo);
             return View(donationUserInfoes.ToList());
         }
@@ -24,6 +33,15 @@ namespace Donations_Software.Controllers
         // GET: DonationUserInfoes/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +57,15 @@ namespace Donations_Software.Controllers
         // GET: DonationUserInfoes/Create
         public ActionResult Create()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             ViewBag.DonationID = new SelectList(db.DonationDetails, "DonationID", "DonationName");
             ViewBag.personalInfoID = new SelectList(db.PersonalInfoes, "personalInfoID", "FirstName");
             return View();
@@ -66,6 +93,15 @@ namespace Donations_Software.Controllers
         // GET: DonationUserInfoes/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -101,6 +137,15 @@ namespace Donations_Software.Controllers
         // GET: DonationUserInfoes/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

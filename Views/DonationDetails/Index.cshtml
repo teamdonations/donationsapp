@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Our Charities</h2>
 
 @{  
     if (Session["isAdmin"].ToString() == "True")
@@ -45,7 +45,12 @@
         @Html.DisplayFor(modelItem => item.Description)
     </td>
     <td>
-        <a href="@Url.Action("Create", "PersonalInfoes", Model)">
+        @{ 
+            Session["DonationID"] = item.DonationID;
+            Session["Price"] = item.Price;
+        }
+
+        <a href="@Url.Action("UserCreate", "PersonalInfoes")">
             <img src="@Url.Content(item.ImageURL)" />
     </td>
     <td>

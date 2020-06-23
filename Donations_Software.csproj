@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ConfirmationController.cs" />
     <Compile Include="Controllers\DonationDetailsController.cs" />
     <Compile Include="Controllers\DonationUserInfoesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -240,6 +241,9 @@
     <Content Include="Views\PersonalInfoes\Edit.cshtml" />
     <Content Include="Views\PersonalInfoes\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Shared\_Login.cshtml" />
+    <Content Include="Views\Confirmation\Index.cshtml" />
+    <Content Include="Views\PersonalInfoes\UserCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

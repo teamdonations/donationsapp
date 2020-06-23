@@ -28,6 +28,15 @@ namespace Donations_Software.Controllers
         // GET: DonationDetails/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +52,10 @@ namespace Donations_Software.Controllers
         // GET: DonationDetails/Create
         public ActionResult Create()
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -66,6 +79,15 @@ namespace Donations_Software.Controllers
         // GET: DonationDetails/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -97,6 +119,15 @@ namespace Donations_Software.Controllers
         // GET: DonationDetails/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["isAdmin"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            else if (Session["isAdmin"].ToString() != "True")
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
