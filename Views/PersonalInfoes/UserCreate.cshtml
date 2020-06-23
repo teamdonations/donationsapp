@@ -12,26 +12,35 @@
 </head>
 <body>
     <h4>Personal Info</h4>
-
-    @*<form asp-action="Index" asp-controller="Form">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" placeholder="Your name goes here" />
-        <input type="submit" />
-        <input name="__RequestVerificationToken" type="hidden" value="<token_generated_here>">
-    </form>*@
+    <h4>DonationID is: @Session["DonationID"]</h4>
 
     @using (Html.BeginForm())
-            {
-                <table>
-                    <tr>
-                        @*<td>@Html.Label("Enter First Name:")</td>
-                        <td>@Html.TextBox("FirstName")</td>*@
-                        <td>@Html.Label("Enter First Name: ")</td>
-                        <td>@Html.TextBox("FirstName")</td>
-                    </tr>
-                </table>
-            }
-            <input type="submit" value="Continue") />
-            <a href="@Url.Action("Index", "Confirmation")">Click to Continue...</a>
+    {
+<table>
+    <tr>
+        <td>@Html.Label("Enter First Name: ")</td>
+        <td>@Html.TextBox("FirstName")</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Enter Last Name: ")</td>
+        <td>@Html.TextBox("LastName")</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Enter Email: ")</td>
+        <td>@Html.TextBox("Email")</td>
+    </tr>
+    <tr>
+        <td>@Html.Label("Enter Address: ")</td>
+        <td>@Html.TextBox("Address1")</td>
+    </tr>
+
+</table>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
 </body>
 </html>

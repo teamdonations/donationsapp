@@ -49,8 +49,8 @@
             Session["DonationID"] = item.DonationID;
             Session["Price"] = item.Price;
         }
-
-        <a href="@Url.Action("UserCreate", "PersonalInfoes")">
+        @*// item is details of donation*@
+        <a href="@Url.Action("UserCreate", "PersonalInfoes", item)">
             <img src="@Url.Content(item.ImageURL)" />
     </td>
     <td>

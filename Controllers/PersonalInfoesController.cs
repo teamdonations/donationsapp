@@ -29,16 +29,25 @@ namespace Donations_Software.Controllers
             var personalInfoes = db.PersonalInfoes.Include(p => p.User);
             return View(personalInfoes.ToList());
         }
-        public ActionResult UserCreate(FormCollection data)
+        public ActionResult UserCreate()
         {
             if (Session["isAdmin"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-
-            Session["FirstName"] = data["FirstName"];
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult UserCreate([Bind(Include = "personalInfoID,UserID,FirstName,LastName,CMA_,Email,Address1,Address2,City,State,ZipPostalCode,Country,Urbanization")] PersonalInfo personalInfo)
+        {
+            Session["FirstName"] = Request["FirstName"];
+            Session["LastName"] = Request["LastName"];
+            Session["Email"] = Request["Email"];
+            Session["Address1"] = Request["Address1"];
+
+            return RedirectToAction("Index","Confirmation");
+            //return View();
         }
 
         // GET: PersonalInfoes/Details/5
@@ -63,12 +72,7 @@ namespace Donations_Software.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-
             ViewBag.UserID = new SelectList(db.Users, "UserID", "FirstName");
-            //ViewBag.DonationName = donation.DonationName;
-            //ViewData["DonationName"] = donation.DonationName;
-            //TempData["DonationID"] = donation.DonationID;
-
             return View();
         }
 
